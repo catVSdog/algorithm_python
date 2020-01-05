@@ -75,7 +75,6 @@ class SinglyLinkList:
     def init_list(self, length, reverse=False):
         if reverse:
             return self.init_list_insert_head(length)
-
         else:
             return self.init_list_append_tail(length)
 
