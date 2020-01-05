@@ -70,7 +70,7 @@ class SinglyLinkList:
 
     def is_empty(self):
         """链表是否为空"""
-        return self._len == 0
+        return self._len == 0  # or return self._head is None
 
     def init_list(self, length, reverse=False):
         if reverse:
