@@ -1,6 +1,6 @@
 """
 循环链表
-关键之最后一个节点的 next 指针指向第一个节点
+关键是最后一个节点的 next 指针指向第一个节点
 连接两个循环链表,也是通过修改两个链表的头尾节点的指针实现
 """
 from copy import deepcopy
@@ -90,7 +90,8 @@ class CircularLinkedList:
     def get_tail(self):
         return self.get_node(self._len)
 
-    def concact(self, another_list):  # 连接两个循环链表
+    def concact(self, another_list):
+        """连接两个循环链表"""
         list_b = deepcopy(another_list)
         first_list_head = self.get_head()
         first_list_tail = self.get_tail()

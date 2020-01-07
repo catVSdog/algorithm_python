@@ -63,8 +63,11 @@ class SinglyLinkList:
             self._head = node
         self._len += 1
 
-    def insert_node(self, position, data):
+    def insert(self, position, data):
         """插入节点"""
+        if position > self._len or position < 0:
+            raise NodeNotExists("out of list")
+
         node = Node(data)
         if position == 1:
             node._next = self._head
@@ -154,7 +157,7 @@ if __name__ == '__main__':
 
     # print("++ 插入一个元素 ++ ")
     # new_node = Node(100)
-    # ss.insert_node(2, new_node)
+    # ss.insert(2, new_node)
     # print(s.get_node(1))
     # print(s.get_node(2))
     # print(s.get_node(3))
