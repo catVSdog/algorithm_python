@@ -5,10 +5,14 @@
 """
 
 
-# a = "1 + 2 * 3"
-# + 1 * 2 3
-def transform_middle_to_prefix(expression):
-    """中缀表达式转前缀表达式"""
+def transform_infix_to_prefix(expression):
+    """
+    中缀表达式转前缀表达式
+    1.翻转字符串进行遍历
+    2.操作数直接加入结果字符串
+    3.栈顶元素** 大于 ** 当前元素时才出栈,加入结果字符串
+    4.翻转结果字符串
+    """
     expression = expression.replace(' ', '')
 
     symbol_priority = {'*': 10, '/': 10, '+': 1, '-': 1}
@@ -42,13 +46,17 @@ def transform_middle_to_prefix(expression):
     return finally_str
 
 
+def transform_infix_to_postfix(expression):
+    pass
+
+
 if __name__ == '__main__':
     a = "1 + 2 * 3"
-    assert transform_middle_to_prefix(a) == '+1*23'
+    assert transform_infix_to_prefix(a) == '+1*23'
 
     a = "1 + 2 * 3 - 4"
-    assert transform_middle_to_prefix(a) == '-+1*234'
+    assert transform_infix_to_prefix(a) == '-+1*234'
 
     a = "1 / 2 * 3 - 4 * 5"
-    assert transform_middle_to_prefix(a) == '-*/123*45'
+    assert transform_infix_to_prefix(a) == '-*/123*45'
 
