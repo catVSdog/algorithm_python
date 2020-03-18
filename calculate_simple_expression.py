@@ -27,7 +27,7 @@ def calculate_simple_expression(expression):
             else:
                 symbol_stack.append(i)
 
-    # 至此,表达式左右元素都已经遍历完了,不会再有向栈中添加元素的操作了,因此 两个栈中的元素可以持续的弹出,计算,弹出,计算...直到所有的操作符都用完
+    # 至此,表达式全部元素都已经遍历完了,不会再有向栈中添加元素的操作了,因此 两个栈中的元素可以持续的弹出,计算,弹出,计算...直到所有的操作符都用完
     finally_number = 0
     while len(symbol_stack) != 0:  # 以操作栈是否为空来判定是否继续计算.毕竟操作数的数量总会多余操作符的数量
         first_number = isdigit_stack.pop()  # 栈顶元素其实是后入栈的
