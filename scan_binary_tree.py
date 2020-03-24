@@ -23,7 +23,28 @@ class Tree:
     def __init__(self):
         self.root = Node()
 
+    def insert(self, begin_node, data):
+        """递归构建二叉查找树"""
+        if begin_node.data is None:  # 默认情况下,所有开发者自己新建的对象都是真的, 因此这里要用节点的data进行判断
+            begin_node.data = data  # 同样这里对节点的data进行赋值.如果是 begin_node = Node(data) 就更改了begin_node所代表的对象
+            return True
+        elif data < begin_node.data:
+            if begin_node.lchild is None:
+                begin_node.lchild = Node()
+                return self.insert(begin_node.lchild, data)
+            else:
+                return self.insert(begin_node.lchild, data)
+        elif data > begin_node.data:
+            if begin_node.rchild is None:
+                begin_node.rchild = Node()
+                return self.insert(begin_node.rchild, data)
+            else:
+                return self.insert(begin_node.rchild, data)
+        else:
+            return False
+
     def build_tree(self, data):
+        """按层级构建二叉树"""
         node = Node(data)
 
         if self.root.data is None:
@@ -110,6 +131,7 @@ class Tree:
 
     @classmethod
     def middle_scan_recursion(cls, begin_node):
+        """中序遍历-递归"""
         if begin_node is None:
             return ''
         else:
@@ -123,6 +145,7 @@ class Tree:
 
     @classmethod
     def middle_scan_stack(cls, begin_node):
+        """中序遍历-栈"""
         if begin_node is None:
             return ''
 
@@ -161,6 +184,7 @@ class Tree:
         return finally_str
 
     def find(self, begin_node, data):
+        """查找节点-递归"""
         if begin_node is None:
             return False
         if begin_node.data == data:
@@ -170,6 +194,7 @@ class Tree:
         return result1 or result2
 
     def find_min_recursion(self, begin_node):
+        """查找最小值-递归"""
         if begin_node is None:
             return
         if begin_node.lchild is None:
@@ -179,7 +204,7 @@ class Tree:
 
     @staticmethod
     def find_min(begin_node):
-        """最小值"""
+        """查找最小值"""
         if begin_node is None:
             return
         node = begin_node
@@ -188,6 +213,7 @@ class Tree:
         return node.data
 
     def find_max_recursion(self, begin_node):
+        """查找最大值-递归"""
         if begin_node is None:
             return
         if begin_node.rchild is None:
@@ -197,7 +223,7 @@ class Tree:
 
     @staticmethod
     def find_max(begin_node):
-        """最大值"""
+        """查找最大值"""
         if begin_node is None:
             return
         node = begin_node
@@ -205,26 +231,6 @@ class Tree:
         while node.rchild:
             node = node.rchild
         return node.data
-
-    def insert(self, begin_node, data):
-        """递归构建二叉查找树"""
-        if begin_node.data is None:
-            begin_node.data = data
-            return True
-        elif data < begin_node.data:
-            if begin_node.lchild is None:
-                begin_node.lchild = Node()
-                return self.insert(begin_node.lchild, data)
-            else:
-                return self.insert(begin_node.lchild, data)
-        elif data > begin_node.data:
-            if begin_node.rchild is None:
-                begin_node.rchild = Node()
-                return self.insert(begin_node.rchild, data)
-            else:
-                return self.insert(begin_node.rchild, data)
-        else:
-            return False
 
 
 if __name__ == '__main__':
@@ -246,13 +252,12 @@ if __name__ == '__main__':
     assert tree.find_max(tree.root) == tree.find_max_recursion(tree.root) == 30
 
     tree_2 = Tree()
-    assert tree_2.insert(tree_2.root, 10) == True
-    assert tree_2.insert(tree_2.root, 5) == True
-    assert tree_2.insert(tree_2.root, 15) == True
-    assert tree_2.insert(tree_2.root, 5) == False
-    assert tree_2.insert(tree_2.root, 1) == True
-    assert tree_2.insert(tree_2.root, 7) == True
-    assert tree_2.insert(tree_2.root, 20) == True
-    assert tree_2.insert(tree_2.root, 13) == True
-
+    assert tree_2.insert(tree_2.root, 10) is True
+    assert tree_2.insert(tree_2.root, 5) is True
+    assert tree_2.insert(tree_2.root, 15) is True
+    assert tree_2.insert(tree_2.root, 5) is False
+    assert tree_2.insert(tree_2.root, 1) is True
+    assert tree_2.insert(tree_2.root, 7) is True
+    assert tree_2.insert(tree_2.root, 20) is True
+    assert tree_2.insert(tree_2.root, 13) is True
     assert tree_2.level_scan(tree_2.root) == '10515171320'
