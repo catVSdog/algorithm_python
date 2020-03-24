@@ -207,6 +207,26 @@ class Tree:
             node = node.rchild
         return node.data
 
+    def insert(self, begin_node, data):
+        """递归构建二叉查找树"""
+        if begin_node.data is None:
+            begin_node.data = data
+            return True
+        elif data < begin_node.data:
+            if begin_node.lchild is None:
+                begin_node.lchild = Node()
+                return self.insert(begin_node.lchild, data)
+            else:
+                return self.insert(begin_node.lchild, data)
+        elif data > begin_node.data:
+            if begin_node.rchild is None:
+                begin_node.rchild = Node()
+                return self.insert(begin_node.rchild, data)
+            else:
+                return self.insert(begin_node.rchild, data)
+        else:
+            return False
+
 
 if __name__ == '__main__':
     tree = Tree()
@@ -225,3 +245,15 @@ if __name__ == '__main__':
     assert tree.find(tree.root, 100) is False
     assert tree.find_min(tree.root) == tree.find_min_recursion(tree.root) == 4
     assert tree.find_max(tree.root) == tree.find_max_recursion(tree.root) == 30
+
+    tree_2 = Tree()
+    assert tree_2.insert(tree_2.root, 10) == True
+    assert tree_2.insert(tree_2.root, 5) == True
+    assert tree_2.insert(tree_2.root, 15) == True
+    assert tree_2.insert(tree_2.root, 5) == False
+    assert tree_2.insert(tree_2.root, 1) == True
+    assert tree_2.insert(tree_2.root, 7) == True
+    assert tree_2.insert(tree_2.root, 20) == True
+    assert tree_2.insert(tree_2.root, 13) == True
+
+    assert tree_2.level_scan(tree_2.root) == '10515171320'
