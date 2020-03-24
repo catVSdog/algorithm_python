@@ -22,7 +22,6 @@ class Node:
 class Tree:
     def __init__(self):
         self.root = Node()
-        self.string = ''
 
     def build_tree(self, data):
         node = Node(data)
