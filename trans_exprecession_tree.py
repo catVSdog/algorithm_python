@@ -62,17 +62,25 @@ if __name__ == '__main__':
     a = '2123*+*31-/'
     exprecession_tree = trans_postfix_exprecession_tree(a)
     print(Tree.post_scan_recursion(exprecession_tree))
+    print(Tree.middle_scan_recursion(exprecession_tree))
+
     a = '21+3*42321+*-*+5+'
     exprecession_tree = trans_postfix_exprecession_tree(a)
     print(Tree.post_scan_recursion(exprecession_tree))
     print(Tree.post_scan_stack(exprecession_tree))
+    print(Tree.middle_scan_recursion(exprecession_tree))
 
     # 遍历前缀表达式
     a = '/*2+1*23-31'
     exprecession_tree = trans_prefix_exprecession_tree(a)
     print(Tree.pre_scan_recursion(exprecession_tree))
-
+    print(Tree.middle_scan_recursion(exprecession_tree))
     a = '++*+213*4-2*3+215'
     exprecession_tree = trans_prefix_exprecession_tree(a)
     print(Tree.pre_scan_recursion(exprecession_tree))
     print(Tree.pre_scan_stack(exprecession_tree))
+    print(Tree.middle_scan_recursion(exprecession_tree))
+
+    a = '-+1*+2345'
+    exprecession_tree = trans_prefix_exprecession_tree(a)
+    print(Tree.middle_scan_recursion(exprecession_tree))

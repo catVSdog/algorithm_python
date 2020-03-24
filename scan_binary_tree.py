@@ -1,5 +1,11 @@
 """
-遍历二叉树
+二叉树
+                 10
+               /   \
+             7      20
+            / \    /  \
+          4    9  15   30
+             二叉查找树
 """
 
 
@@ -69,7 +75,7 @@ class Tree:
         finally_str = ''
         while stack_2:  # [ root, right_node, left_node, right_node, left_node ... ]
             item = stack_2.pop()  # 依次弹出左孩子, 右孩子, 根
-            finally_str += item.data
+            finally_str += str(item.data)
         return finally_str
 
     @classmethod
@@ -94,7 +100,7 @@ class Tree:
         finally_str = ''
         while node or stack:
             while node:
-                finally_str += node.data
+                finally_str += str(node.data)
                 stack.append(node)
                 node = node.lchild
 
@@ -111,6 +117,9 @@ class Tree:
             left_node = cls.middle_scan_recursion(begin_node.lchild)
             middle_data = begin_node.data
             right_node = cls.middle_scan_recursion(begin_node.rchild)
+
+        # if left_node and right_node:
+        #     return f'({left_node}{middle_data}{right_node})'  # 表达式树,构建中缀表达式
         return f'{left_node}{middle_data}{right_node}'
 
     @classmethod
@@ -128,22 +137,91 @@ class Tree:
                 node = node.lchild
 
             node = stack.pop()
-            finally_str += node.data
+            finally_str += str(node.data)
             node = node.rchild
         return finally_str
+
+    @classmethod
+    def level_scan(cls, begin_node):
+        """层级遍历"""
+        if begin_node is None:
+            return
+        nodes = [begin_node]
+        finally_str = ''
+        while nodes:
+            first_node = nodes.pop(0)
+            finally_str += str(first_node.data)
+
+            if first_node.lchild:
+                left_node = first_node.lchild
+                nodes.append(left_node)
+            if first_node.rchild:
+                right_node = first_node.rchild
+                nodes.append(right_node)
+
+        return finally_str
+
+    def find(self, begin_node, data):
+        if begin_node is None:
+            return False
+        if begin_node.data == data:
+            return True
+        result1 = self.find(begin_node.lchild, data)
+        result2 = self.find(begin_node.rchild, data)
+        return result1 or result2
+
+    def find_min_recursion(self, begin_node):
+        if begin_node is None:
+            return
+        if begin_node.lchild is None:
+            return begin_node.data
+        else:
+            return self.find_min_recursion(begin_node.lchild)
+
+    @staticmethod
+    def find_min(begin_node):
+        """最小值"""
+        if begin_node is None:
+            return
+        node = begin_node
+        while node.lchild:
+            node = node.lchild
+        return node.data
+
+    def find_max_recursion(self, begin_node):
+        if begin_node is None:
+            return
+        if begin_node.rchild is None:
+            return begin_node.data
+        else:
+            return self.find_max_recursion(begin_node.rchild)
+
+    @staticmethod
+    def find_max(begin_node):
+        """最大值"""
+        if begin_node is None:
+            return
+        node = begin_node
+
+        while node.rchild:
+            node = node.rchild
+        return node.data
 
 
 if __name__ == '__main__':
     tree = Tree()
-    tree.build_tree('1')
-    tree.build_tree('2')
-    tree.build_tree('3')
-    tree.build_tree('4')
-    tree.build_tree('5')
-    tree.build_tree('6')
-    tree.build_tree('7')
-    tree.build_tree('8')
-    tree.build_tree('9')
-    assert tree.middle_scan_recursion(tree.root) == tree.middle_scan_stack(tree.root) == '849251637'
-    assert tree.post_scan_recursion(tree.root) == tree.post_scan_stack(tree.root) == '894526731'
-    assert tree.pre_scan_recursion(tree.root) == tree.pre_scan_stack(tree.root) == '124895367'
+    tree.build_tree(10)
+    tree.build_tree(7)
+    tree.build_tree(20)
+    tree.build_tree(4)
+    tree.build_tree(9)
+    tree.build_tree(15)
+    tree.build_tree(30)
+    assert tree.middle_scan_recursion(tree.root) == tree.middle_scan_stack(tree.root)
+    assert tree.post_scan_recursion(tree.root) == tree.post_scan_stack(tree.root)
+    assert tree.pre_scan_recursion(tree.root) == tree.pre_scan_stack(tree.root)
+    assert tree.level_scan(tree.root) == '10720491530'
+    assert tree.find(tree.root, 4) is True
+    assert tree.find(tree.root, 100) is False
+    assert tree.find_min(tree.root) == tree.find_min_recursion(tree.root) == 4
+    assert tree.find_max(tree.root) == tree.find_max_recursion(tree.root) == 30
