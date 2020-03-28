@@ -1,5 +1,5 @@
 """
-图遍历-广度优先
+图遍历
 
             b ——  c
           /  \  /  \
@@ -27,6 +27,7 @@ class Graph:
         self.edge_list = edge_list
 
     def BFS(self, begin_vertex):
+        """广度优先"""
         next_vertex_list = []
         visited_vertexes = set()
         finally_string = ''
@@ -53,6 +54,7 @@ class Graph:
         return finally_string
 
     def DFS(self, begin_vertex):
+        """深度优先"""
         next_vertex_list = []
         visited_vertexes = set()
         finally_string = ''
