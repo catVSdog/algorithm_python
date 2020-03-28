@@ -63,7 +63,6 @@ class Graph:
                     if adjacent_vertex not in visited_vertexes:
                         next_vertex_list.append(adjacent_vertex)  # 此处会重复添加已经访问过得元素
 
-
         return finally_string
 
     def DFS(self, begin_vertex):
@@ -93,9 +92,6 @@ class Graph:
                     break  # 深度优先,只要找到一个相邻的顶点,那么就退出本循环,以相邻顶点开始继续查找下一个相邻顶点
 
         return finally_string
-
-
-
 
 
 if __name__ == '__main__':
