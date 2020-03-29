@@ -35,6 +35,8 @@ EDGES = [   # 为了简化读取操作, 故 将 X 轴， Y轴 颠倒,即先读Y�
 
 class Graph:
     """邻接矩阵方式"""
+    visited_vertexes_cls = set()
+
     def __init__(self, vertex_list, edge_list):
         self.vertex_list = vertex_list
         self.edge_list = edge_list
@@ -61,7 +63,7 @@ class Graph:
                 if v_value > 0:
                     adjacent_vertex = self.vertex_list[v_index]
                     if adjacent_vertex not in visited_vertexes:
-                        next_vertex_list.append(adjacent_vertex)  # 此处会重复添加已经访问过得元素
+                        next_vertex_list.append(adjacent_vertex)  # 此处可能会将一些重复顶点添加到待访问队列
 
         return finally_string
 
@@ -93,8 +95,22 @@ class Graph:
 
         return finally_string
 
+    def DFS_recursion(self, begin_vertex):
+        """深度优先遍历 - 递归"""
+        self.visited_vertexes_cls.add(begin_vertex)
+        print(begin_vertex, end=' ')
+
+        vertex_index = self.vertex_list.index(begin_vertex)
+        row = self.edge_list[vertex_index]
+
+        for v_index, v_value in enumerate(row):
+            adjacent_vertex = self.vertex_list[v_index]
+            if v_value > 0 and adjacent_vertex not in self.visited_vertexes_cls:
+                self.DFS_recursion(adjacent_vertex)
+
 
 if __name__ == '__main__':
     graph = Graph(VERTEXES, EDGES)
     assert graph.BFS('a') == 'abfgced'
     assert graph.DFS('a') == 'abcdefg'
+    graph.DFS_recursion('a')  # 'a b c d e f g'
