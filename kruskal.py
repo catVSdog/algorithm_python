@@ -29,31 +29,31 @@ EDGES = [  # 为了简化读取操作, 故 将 X 轴， Y轴 颠倒,即先读Y�
 ]
 
 
-class Path:
+class Edge:
     def __init__(self, begin, end, weight):
         self.begin = begin
         self.end = end
         self.weight = weight
 
     def __repr__(self):
-        return f'{self.begin}-{self.end}-{self.weight}'
+        return f'edge: begin:{self.begin}-end:{self.end}-weight:{self.weight}'
 
     def __eq__(self, other):
         return other.begin == self.end and other.end == self.begin
 
 
 def get_edges(edge_array):
-    PATH_LIST = []
+    EDGE_LIST = []
 
     for x in range(len(edge_array)):
         row_x = edge_array[x]
         for y in range(len(row_x)):
             if edge_array[x][y] not in (0, INFINITY):
-                path = Path(x, y, edge_array[x][y])
-                if path not in PATH_LIST:
-                    PATH_LIST.append(path)
+                edge = Edge(x, y, edge_array[x][y])
+                if edge not in EDGE_LIST:
+                    EDGE_LIST.append(edge)
 
-    return sorted(PATH_LIST, key=lambda x: x.weight)
+    return sorted(EDGE_LIST, key=lambda x: x.weight)
 
 
 class Graph:
