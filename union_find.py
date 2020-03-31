@@ -76,12 +76,12 @@ class QuickUnion(BaseUnionFind):
         return self.find(a) == self.find(b)
 
     def union(self, a, b):
-        a_root = self.find(a)
-        b_root = self.find(b)
+        a_parent = self.find(a)
+        b_parent = self.find(b)
 
-        if a_root == b_root:
+        if a_parent == b_parent:
             return
-        self.relations[a_root] = b_root
+        self.relations[a_parent] = b_parent
 
 
 class QuickUnionCompressPath(BaseUnionFind):
