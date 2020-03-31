@@ -29,8 +29,6 @@ EDGES = [  # 为了简化读取操作, 故 将 X 轴， Y轴 颠倒,即先读Y�
 
 class Graph:
     """邻接矩阵方式"""
-    visited_vertexes_cls = set()
-
     def __init__(self, vertex_list, edge_list):
         self.vertex_list = vertex_list
         self.edge_list = edge_list
@@ -66,7 +64,7 @@ class Graph:
 
 if __name__ == '__main__':
     graph = Graph(VERTEXES, EDGES)
-    graph.prim('g')
+    graph.prim('a')
 
 
 
