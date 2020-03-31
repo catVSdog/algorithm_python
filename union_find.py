@@ -28,7 +28,7 @@ class QuickFind(BaseUnionFind):
         self.relations = [node_list.index(i) for i in node_list]
 
     def __repr__(self):
-        return self.relations
+        return f'{self.relations}'
 
     @property
     def group_len(self):
@@ -38,12 +38,7 @@ class QuickFind(BaseUnionFind):
         return self.relations[target]
 
     def connected(self, a, b):
-        a_group = self.find(a)
-        b_group = self.find(b)
-
-        if a_group != b_group:
-            return False
-        return True
+        return self.find(a) == self.find(b)
 
     def union(self, a, b):
         a_group = self.find(a)
