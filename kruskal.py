@@ -18,14 +18,14 @@ VERTEXES = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 # 邻接矩阵
 EDGES = [  # 为了简化读取操作, 故 将 X 轴， Y轴 颠倒,即先读Y轴再度X轴  e.g.  a-c  EDGES[0][2] = INFINITY
 
-    #        a(0)      b(1)       c(2)       d(3)       e(4)       f(5)       g(6)
-    [0, 1, INFINITY, INFINITY, INFINITY, 2, INFINITY],  # a(0)
-    [1, 0, 5, INFINITY, INFINITY, INFINITY, 7],  # b(1)
-    [INFINITY, 5, 0, 8, INFINITY, INFINITY, INFINITY],  # c(2)
-    [INFINITY, INFINITY, 8, 0, 3, INFINITY, 6],  # d(3)
-    [INFINITY, INFINITY, INFINITY, 3, 0, 9, 4],  # e(4)
-    [2, INFINITY, INFINITY, INFINITY, 9, 0, INFINITY],  # f(5)
-    [INFINITY, 7, INFINITY, 6, 4, INFINITY, 0],  # g(6)
+    #      a(0)      b(1)       c(2)       d(3)       e(4)       f(5)       g(6)
+    [       0,         1,  INFINITY,  INFINITY,  INFINITY,         2,  INFINITY],  # a(0)
+    [       1,         0,         5,  INFINITY,  INFINITY,  INFINITY,         7],  # b(1)
+    [INFINITY,         5,         0,         8,  INFINITY,  INFINITY,  INFINITY],  # c(2)
+    [INFINITY,  INFINITY,         8,         0,         3,  INFINITY,         6],  # d(3)
+    [INFINITY,  INFINITY,  INFINITY,         3,         0,         9,         4],  # e(4)
+    [       2,  INFINITY,  INFINITY,  INFINITY,         9,         0,  INFINITY],  # f(5)
+    [INFINITY,         7,  INFINITY,         6,         4,  INFINITY,         0],  # g(6)
 ]
 
 
