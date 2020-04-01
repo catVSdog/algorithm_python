@@ -36,7 +36,7 @@ class ShortestPath:
 
     def dijkstra(self, begin, end):
         begin_index = self.vertex_list.index(begin)
-        visited = [0 for i in self.vertex_list]  # 记录访问过的节点,初始均为0,表示没有访问过
+        visited = [False for i in self.vertex_list]  # 记录访问过的节点,初始均为False,表示没有访问过
         vertex_from = [begin_index for i in self.vertex_list]  # 记录每段路径的起始点, 起始值为begin所在的节点索引
         vertex_weight = self.edge_list[begin_index]  # 记录起始节点到每一个节点的最短路径,初始为begin节点到图中各个顶点的距离
 
@@ -50,16 +50,16 @@ class ShortestPath:
             cost_min = INFINITY
             for vertex_index in range(len(self.vertex_list)):
 
-                if visited[vertex_index] == 0 and vertex_weight[vertex_index] < cost_min:
+                if not visited[vertex_index] and vertex_weight[vertex_index] < cost_min:
                     nearest_index = vertex_index
                     cost_min = vertex_weight[vertex_index]
 
-            visited[nearest_index] = 1
+            visited[nearest_index] = True
 
             for vertex_index in range(len(self.vertex_list)):
                 direct_connection_cost = vertex_weight[vertex_index]  # 例如 Ro 直接到 R2的距离
                 detour_connection_cost = self.edge_list[nearest_index][vertex_index] + cost_min  # R0 到 R2 绕行 R1 的距离
-                if visited[vertex_index] == 0 and direct_connection_cost > detour_connection_cost:
+                if not visited[vertex_index] and direct_connection_cost > detour_connection_cost:
                     vertex_weight[vertex_index] = detour_connection_cost
                     vertex_from[vertex_index] = nearest_index
 
@@ -90,4 +90,4 @@ class ShortestPath:
 
 if __name__ == '__main__':
     sp = ShortestPath(VERTEXES, EDGES)
-    print(sp.dijkstra('a', 'd'))
+    print(sp.dijkstra('d', 'a'))
