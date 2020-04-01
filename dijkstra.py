@@ -55,7 +55,8 @@ class Dijkstra:
             visited[nearest_index] = True
 
             for vertex_index in range(len(self.vertex_list)):
-                direct_connection_cost = vertex_weight[vertex_index]  # 例如 Ro 直接到 R2的距离
+                # 以最近节点为前进基地,更新前进基地周边节点距离大本营(begin节点)的最短距离
+                direct_connection_cost = vertex_weight[vertex_index]  # 例如 Ro - R2的距离
                 detour_connection_cost = self.edge_list[nearest_index][vertex_index] + cost_min  # R0 - R1 - R2 的距离
                 if not visited[vertex_index] and direct_connection_cost > detour_connection_cost:
                     vertex_weight[vertex_index] = detour_connection_cost
@@ -78,7 +79,7 @@ class Dijkstra:
                 return path
 
         path_rev = find(end_index)
-        flow_path = path_rev[::-1] + f'{end_index}'
+        flow_path = path_rev[::-1] + str(end_index)
 
         return flow_path, begin_end_cost
 
