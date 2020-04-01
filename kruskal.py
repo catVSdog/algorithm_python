@@ -66,7 +66,7 @@ class Graph:
     def kruscal(self):
         tree = []
         sorted_edges = get_edges(self.edge_list)  # 根据边的权,从小到大排序
-        uq = QuickFind(sorted_edges)
+        uq = QuickFind(self.vertex_list)   # 转换节点,根据边来判断各个节点是否是同一组
 
         for edge in sorted_edges:
             begin = edge.begin
@@ -78,6 +78,8 @@ class Graph:
         for edge in tree:
             print(
                 f'EDGE: begin:{edge.begin}({self.vertex_list[edge.begin]}) to {edge.end}({self.vertex_list[edge.end]})')
+
+        return tree
 
 
 if __name__ == '__main__':
