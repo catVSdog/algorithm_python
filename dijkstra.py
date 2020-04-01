@@ -29,27 +29,25 @@ EDGES = [  # 为了简化读取操作, 故 将 X 轴， Y轴 颠倒,即先读Y�
 ]
 
 
-class ShortestPath:
+class Dijkstra:
     def __init__(self, vertex_list, edge_list):
         self.vertex_list = vertex_list
         self.edge_list = edge_list
 
-    def dijkstra(self, begin, end):
+    def process(self, begin, end):
         begin_index = self.vertex_list.index(begin)
         visited = [False for i in self.vertex_list]  # 记录访问过的节点,初始均为False,表示没有访问过
         vertex_from = [begin_index for i in self.vertex_list]  # 记录每段路径的起始点, 起始值为begin所在的节点索引
         vertex_weight = self.edge_list[begin_index]  # 记录起始节点到每一个节点的最短路径,初始为begin节点到图中各个顶点的距离
 
-        visited[begin_index] = 1  # 初始化,从begin节点开始, 表示已经访问过
+        visited[begin_index] = True  # 初始化,从begin节点开始, 表示已经访问过
         vertex_weight[begin_index] = 0  # 初始化,从节点到节点的距离是 0
-
-        nearest_index = 0  # 最近节点索引
 
         for i in range(len(self.vertex_list)):
             # 寻找距离 begin 最近的节点
             cost_min = INFINITY
-            for vertex_index in range(len(self.vertex_list)):
 
+            for vertex_index in range(len(self.vertex_list)):
                 if not visited[vertex_index] and vertex_weight[vertex_index] < cost_min:
                     nearest_index = vertex_index
                     cost_min = vertex_weight[vertex_index]
@@ -58,7 +56,7 @@ class ShortestPath:
 
             for vertex_index in range(len(self.vertex_list)):
                 direct_connection_cost = vertex_weight[vertex_index]  # 例如 Ro 直接到 R2的距离
-                detour_connection_cost = self.edge_list[nearest_index][vertex_index] + cost_min  # R0 到 R2 绕行 R1 的距离
+                detour_connection_cost = self.edge_list[nearest_index][vertex_index] + cost_min  # R0 - R1 - R2 的距离
                 if not visited[vertex_index] and direct_connection_cost > detour_connection_cost:
                     vertex_weight[vertex_index] = detour_connection_cost
                     vertex_from[vertex_index] = nearest_index
@@ -80,14 +78,13 @@ class ShortestPath:
                 return path
 
         path_rev = find(end_index)
+        flow_path = path_rev[::-1] + f'{end_index}'
 
-        path = path_rev[::-1] + f'{end_index}'
-        print(f'path:{path}')
-        print(f'cost: {begin_end_cost}')
-
-        return path, begin_end_cost
+        return flow_path, begin_end_cost
 
 
 if __name__ == '__main__':
-    sp = ShortestPath(VERTEXES, EDGES)
-    print(sp.dijkstra('d', 'a'))
+    dj = Dijkstra(VERTEXES, EDGES)
+    path, cost = dj.process('d', 'a')
+    print(f'path:{path}')
+    print(f'cost: {cost}')
