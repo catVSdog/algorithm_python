@@ -9,6 +9,7 @@ class InsertSort:
 
     @staticmethod
     def straight_sort(array):
+        """直接插入排序"""
         array_length = len(array)
         for disorder_index in range(1, array_length):
             moving_node = array[disorder_index]
@@ -23,6 +24,7 @@ class InsertSort:
 
     @staticmethod
     def binary_sort(array):
+        """折半插入"""
         array_length = len(array)
 
         for disorder_index in range(1, array_length):
