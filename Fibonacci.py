@@ -10,6 +10,7 @@ F(n) =
 
 
 def function(n):
+    """递归"""
     if n == 0:
         return 0
     elif n == 1:
@@ -18,8 +19,36 @@ def function(n):
         return function(n - 1) + function(n - 2)
 
 
+def function_b(n):
+    """备忘录"""
+
+    def help(n, cache):
+        if n not in cache:
+            cache[n] = help(n - 1, cache) + help(n - 2, cache)
+        return cache[n]
+
+    cache = {}
+    cache[0] = 0
+    cache[1] = 1
+
+    return help(n, cache)
+
+
+def function_c(n):
+    cache = [None] * (n + 1)
+    cache[0] = 0
+    cache[1] = 1
+
+    def help(n, cache):
+        if cache[n] is None:
+            cache[n] = help(n - 1, cache) + help(n - 2, cache)
+        return cache[n]
+
+    return help(n, cache)
+
+
 if __name__ == '__main__':
     assert function(0) == 0
     assert function(1) == 1
     assert function(3) == 2
-    assert function(5) == 5
+    assert function_b(5) == 5
