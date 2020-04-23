@@ -35,6 +35,7 @@ def function_b(n):
 
 
 def function_c(n):
+    """备忘录"""
     cache = [None] * (n + 1)
     cache[0] = 0
     cache[1] = 1
@@ -47,8 +48,21 @@ def function_c(n):
     return help(n, cache)
 
 
+def function_d(n):
+    """动态规划"""
+    temp = [None] * (n + 1)
+    if n <= 1:
+        return n
+    else:
+        temp[0] = 0
+        temp[1] = 1
+        for i in range(2, n + 1):
+            temp[i] = temp[i - 1] + temp[i - 2]
+        return temp[n]
+
+
 if __name__ == '__main__':
     assert function(0) == 0
     assert function(1) == 1
     assert function(3) == 2
-    assert function_b(5) == 5
+    assert function_d(5) == function(5)
