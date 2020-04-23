@@ -24,9 +24,9 @@ class BubbleSort:
                 if array[j] > array[j + 1]:
                     array[j], array[j + 1] = array[j + 1], array[j]
                     flag = True
-            if flag is False:
-                break
-        return array
+            if flag is False:  # 如果本次没有发生数据交换,说明已经排序完成,结束循环
+                return array
+
 
 
 if __name__ == '__main__':
