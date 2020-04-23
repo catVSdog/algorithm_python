@@ -150,8 +150,10 @@ if __name__ == '__main__':
             "name": "内存"
         },
     ]
-    expected = convert_format(industry_list)
-    print(expected)
+    expected_a = convert_format_a(industry_list)
+    expected_b = convert_format_b(industry_list, {})
+    print(expected_a)
+    print(expected_b)
     # {
     #     "女装": {
     #         "连衣裙": {},
